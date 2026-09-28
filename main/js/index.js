@@ -144,7 +144,7 @@ function addSpan(span) {
   chSpan.classList.add("char");
 
   chSpan.appendChild(txtSpan);
-  display.appendChild(chSpan);
+  display.appendChild(chSpan); 
 }
 
 let origindisplay = display.innerText.split("");
