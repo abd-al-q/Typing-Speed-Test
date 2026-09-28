@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Speed Test</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="head">
+        <img class="desktop-icon" src="./images/logo-large.svg" alt="" />
+        <img class="mobile-icon" src="./images/logo-small.svg" alt="" />
+
+        <div class="highest">
+          <img src="./images/icon-personal-best.svg" alt="" />
+          <p>Personal best:</p>
+          <p class="score">0</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="statistics">
+          <p>WPM: <span data-color="white">0</span></p>
+          <p class="mid-statistics">
+            Accuracy: <span data-color="red">0%</span>
+          </p>
+          <p>Time: 0:<span class="timing" data-color="yellow">60</span></p>
+        </div>
+
+        <div class="difficulty">
+          <p>Difficulty:</p>
+
+          <div class="diff-inputs inputs">
+            <input type="radio" id="easy" checked />
+            <label for="easy">Easy</label>
+
+            <input type="radio" id="medium" />
+            <label for="medium">Medium</label>
+
+            <input type="radio" id="hard" />
+            <label for="hard">Hard</label>
+          </div>
+        </div>
+
+        <div class="mode">
+          <p>Mode:</p>
+
+          <div class="mode-inputs inputs">
+            <input type="radio" id="minute" checked />
+            <label for="minute">Timed (60s)</label>
+
+            <input type="radio" id="passage" />
+            <label for="passage">Passage</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main">
+      <textarea class="test-text" name="" id="" placeholder=""></textarea>
+      <span class="fake-place"
+        >The sun rose over the quiet town. Birds sang in the trees as people
+        woke up and started their day. It was going to be a warm and sunny
+        morning.</span
+      >
+      <div class="display"></div>
+      <button class="restart">
+        Restart Test
+        <img
+          style="width: 10px; margin-left: 5px"
+          src="./images/icon-restart.svg"
+          alt=""
+        />
+      </button>
+
+      <div class="start">
+        <button class="start-btn">Start Typing Test</button>
+        <p>* Set the difficulty and mode to begin the test *</p>
+      </div>
+    </div>
+
+    <script type="module" src="./js/jquery.js"></script>
+    <script type="module" src="./js/index.js"></script>
+  </body>
+</html>
