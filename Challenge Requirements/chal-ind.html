@@ -1,57 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Speed Test</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="head">
+        <img class="desktop-icon" src="./images/logo-large.svg" alt="" />
+        <img class="mobile-icon" src="./images/logo-small.svg" alt="" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Typing Speed Test</title>
+        <div class="highest">
+          <img src="./images/icon-personal-best.svg" alt="" />
+          <p>Personal best:</p>
+          <p class="score">0</p>
+        </div>
+      </div>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 0.6875rem; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
+      <div class="controls">
+        <div class="statistics">
+          <p>WPM: <span data-color="white">0</span></p>
+          <p class="mid-statistics">
+            Accuracy: <span data-color="red">0%</span>
+          </p>
+          <p>Time: 0:<span class="timing" data-color="yellow">60</span></p>
+        </div>
 
-  Personal best: <!-- PB --> WPM
+        <div class="difficulty">
+          <p>Difficulty:</p>
 
-  WPM: <!-- WPM -->
-  Accuracy: <!-- Accuracy -->
-  Time: <!-- Time -->
+          <div class="diff-inputs inputs">
+            <input type="radio" id="easy" checked />
+            <label for="easy">Easy</label>
 
-  Difficulty:
-  Easy
-  Medium
-  Hard
+            <input type="radio" id="medium" />
+            <label for="medium">Medium</label>
 
-  Mode:
-  Timed (60s)
-  Passage
+            <input type="radio" id="hard" />
+            <label for="hard">Hard</label>
+          </div>
+        </div>
 
-  <!-- Passage -->
+        <div class="mode">
+          <p>Mode:</p>
 
-  Start Typing Test
-  Or click the text and start typing
+          <div class="mode-inputs inputs">
+            <input type="radio" id="minute" checked />
+            <label for="minute">Timed (60s)</label>
 
-  <!-- Test Complete Start -->
+            <input type="radio" id="passage" />
+            <label for="passage">Passage</label>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  Test Complete!
-  Solid run. Keep pushing to beat your high score.
+    <div class="main">
+      <textarea class="test-text" name="" id="" placeholder=""></textarea>
+      <span class="fake-place"
+        >The sun rose over the quiet town. Birds sang in the trees as people
+        woke up and started their day. It was going to be a warm and sunny
+        morning.</span
+      >
+      <div class="display"></div>
+      <button class="restart">
+        Restart Test
+        <img
+          style="width: 10px; margin-left: 5px"
+          src="./images/icon-restart.svg"
+          alt=""
+        />
+      </button>
 
-  WPM: <!-- WPM -->
-  Accuracy: <!-- Accuracy -->
-  Characters: <!-- Correct/Incorrect -->
+      <div class="start">
+        <button class="start-btn">Start Typing Test</button>
+        <p>* Set the difficulty and mode to begin the test *</p>
+      </div>
+    </div>
 
-  Go Again
-  
-  <!-- Test Complete End -->
-
-  <footer class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </footer>
-</body>
+    <script type="module" src="./js/jquery.js"></script>
+    <script type="module" src="./js/index.js"></script>
+  </body>
 </html>
