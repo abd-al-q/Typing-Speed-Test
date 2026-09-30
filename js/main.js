@@ -8,9 +8,7 @@ let time = document.querySelector(".timing");
 let textArea = document.querySelector(`.test-text`);
 let fakePlace = document.querySelector(`.fake-place`);
 let display = document.querySelector(`.display`);
-let stopTime = Boolean(
-  textArea.innerText.length === fakePlace.innerText.length,
-);
+let overtime = false;
 
 function getRandom() {
   return Math.floor(Math.random() * 10);
@@ -68,16 +66,27 @@ function timer(ele) {
       ele.innerText = parseInt(ele.innerText) - 1;
       if (ele.innerText <= 0) {
         clearInterval(sixInterval);
-        // textArea.blur();
+        // console.log("Time's up!");
+        overtime = true;
+        textArea.blur();
       }
     }, 1000);
   } else {
     let openInterval = setInterval(() => {
+      let stopTime = Boolean(
+        textArea.value.length === fakePlace.innerText.length,
+      );
+
       ele.innerText =
         parseInt(ele.innerText) < 9
           ? `0${parseInt(ele.innerText) + 1}`
           : parseInt(ele.innerText) + 1;
-      if (stopTime) clearInterval(openInterval);
+      if (stopTime) {
+        clearInterval(openInterval);
+        // console.log("Time's up!");
+        overtime = true;
+        textArea.blur();
+      }
     }, 1000);
   }
 }
@@ -98,34 +107,8 @@ startBtn.addEventListener("click", () => {
   });
 
   if (diffCond && modeCond) {
-    setTimeout(() => {
-      startDiv.style.display = "none";
-      timer(time);
-
-      if (timeSat === "minute") {
-        for (let i = 60; i <= 0; i--) {
-          if (parseInt(time.innerText) === 0) {
-            console.log("time is up");
-          }
-        }
-      } else if (timeSat === "open") {
-        if (textArea.value.split("").length === origintext.length) {
-          textArea.blur();
-        }
-      }
-
-      // for (let i = 60; i <= 0; i--) {
-      //   if (timeSat === "minute") {
-      //     if (parseInt(time.innerText) === 0) {
-      //       console.log("time is up");
-      //     }
-      //   } else if (timeSat === "open") {
-      //     if (textArea.value.split("").length === origintext.length) {
-      //       textArea.blur();
-      //     }
-      //   }
-      // }
-    }, 300);
+    startDiv.style.display = "none";
+    timer(time);
   } else {
     let p = document.querySelector(".start p");
 
@@ -137,6 +120,14 @@ startBtn.addEventListener("click", () => {
   }
 });
 
+startBtn.addEventListener("click", () => {
+  let completedCheck = setInterval(() => {
+    if (overtime) {
+      
+    }
+  }, 1000);
+});
+
 function addSpan(span) {
   let chSpan = document.createElement("span");
   let txtSpan = document.createTextNode(`${span}`);
@@ -144,7 +135,7 @@ function addSpan(span) {
   chSpan.classList.add("char");
 
   chSpan.appendChild(txtSpan);
-  display.appendChild(chSpan); 
+  display.appendChild(chSpan);
 }
 
 let origindisplay = display.innerText.split("");
@@ -192,8 +183,6 @@ textArea.addEventListener("input", () => {
   console.log(chars);
 
   fakePlace.innerText = rewritefake.join("");
-  // display.innerText = rewriteDisplay.join("");
-  // textArea.value = rewriteText.join("");
 });
 
 setChecked(diffLabels);
