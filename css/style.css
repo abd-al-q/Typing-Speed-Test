@@ -44,7 +44,7 @@ body {
   width: 20px;
   margin-right: 10px;
 }
-.score {
+.highest span {
   color: white;
 }
 .controls {
@@ -57,16 +57,17 @@ body {
 .statistics p {
   height: 15px;
 }
-.mid-statistics {
+.accuracy {
   margin: 0 10px;
   padding: 0 10px;
   border-left: 1px solid hsl(0, 0%, 15%);
   border-right: 1px solid hsl(0, 0%, 15%);
 }
-.statistics p span {
+.control span {
   margin-left: 2px;
   font-weight: 700;
   color: white;
+  font-size: 16px;
 }
 .difficulty,
 .mode {
@@ -147,7 +148,7 @@ body {
 .test-text:focus {
   outline: none;
 }
-.restart {
+.btn {
   display: block;
   color: white;
   padding: 8px 8px;
@@ -157,6 +158,13 @@ body {
   border-radius: 5px;
   background-color: hsl(0, 0%, 15%);
   cursor: pointer;
+}
+.cmplt-btn {
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 7%);
+}
+.state {
+  color: white;
 }
 .start {
   color: white;
@@ -189,4 +197,23 @@ body {
   text-decoration: underline;
   color: red;
   transition: 0s;
+}
+.cmplate-state {
+  width: 83.5%;
+  height: stretch;
+  background-color: hsl(0, 0%, 7%);
+  padding-top: 5%;
+  position: absolute;
+  top: 7%;
+  z-index: 3;
+  display: none;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+.results {
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
+  padding: 40px 0;
 }

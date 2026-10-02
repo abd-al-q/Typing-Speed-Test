@@ -15,18 +15,19 @@
 
         <div class="highest">
           <img src="./images/icon-personal-best.svg" alt="" />
-          <p>Personal best:</p>
-          <p class="score">0</p>
+          <p>Personal best: <span>0</span></p>
         </div>
       </div>
 
       <div class="controls">
         <div class="statistics">
-          <p>WPM: <span data-color="white">0</span></p>
-          <p class="mid-statistics">
-            Accuracy: <span data-color="red">0%</span>
+          <p class="control wpm">WPM: <span data-color="white">0</span></p>
+          <p class="control accuracy">
+            Accuracy: <span data-color="red">0</span>%
           </p>
-          <p>Time: 0:<span class="timing" data-color="yellow">60</span></p>
+          <p class="control time">
+            Time: 0:<span class="timing" data-color="yellow">60</span>
+          </p>
         </div>
 
         <div class="difficulty">
@@ -66,7 +67,7 @@
         morning.</span
       >
       <div class="display"></div>
-      <button class="restart">
+      <button class="restart btn">
         Restart Test
         <img
           style="width: 10px; margin-left: 5px"
@@ -79,8 +80,33 @@
         <button class="start-btn">Start Typing Test</button>
         <p>* Set the difficulty and mode to begin the test *</p>
       </div>
-    </div> 
-    <h1 class="text-red-500">Typing Speed Test</h1>
+    </div>
+
+    <div class="cmplate-state">
+      <img src="./images/icon-new-pb.svg" alt="" />
+      <h1 class="state">High Score Smashed!</h1>
+      <p>You're getting faster. That was incredible typing.</p>
+
+      <div class="results">
+        <p class="control wpm">
+          WPM: <br /><span class="result" data-color="white">0</span>
+        </p>
+        <p class="control accuracy">
+          Accuracy: <br /><span class="result" data-color="red">0</span>%
+        </p>
+        <p class="control characters"> 
+          Characters <br /><span class="result" data-color="yellow">0</span>
+        </p>
+      </div>
+      <button class="cmplt-btn btn">
+        Beat This Score
+        <img
+          style="width: 10px; margin-left: 5px"
+          src="./images/icon-restart-comp.svg"
+          alt=""
+        />
+      </button>
+    </div>
 
     <script type="module" src="./js/jquery.js"></script>
     <script type="module" src="./js/main.js"></script>

@@ -9,29 +9,6 @@ let textArea = document.querySelector(`.test-text`);
 let fakePlace = document.querySelector(`.fake-place`);
 let display = document.querySelector(`.display`);
 let overtime = false;
-let controls = document.querySelectorAll(".control span");
-let wpm = document.querySelectorAll(".wpm span");
-let accuracy = document.querySelectorAll(".accuracy span");
-let characters = document.querySelector(".characters span");
-let score = document.querySelector(".highest span");
-let timeToken = 0;
-
-if (!window.localStorage.getItem("highestScore")) {
-  window.localStorage.setItem("highestScore", "0");
-}
-score.innerText = window.localStorage.getItem("highestScore");
-
-// $("document").ready(function () {
-//   $(".cmplate-state").hide();
-// });
-
-controls.forEach((control) => {
-  control.style.cssText = `color: ${control.dataset.color};`;
-});
-
-if (accuracy.innerText === "100%") {
-  accuracy.style.cssText = "color: hsl(140, 63%, 57%);";
-}
 
 function getRandom() {
   return Math.floor(Math.random() * 10);
@@ -86,24 +63,12 @@ function setDifficulty(lables) {
 function timer(ele) {
   if (ele.innerText === "60") {
     let sixInterval = setInterval(() => {
-      let stopTime = Boolean(
-        textArea.value.length === fakePlace.innerText.length,
-      );
       ele.innerText = parseInt(ele.innerText) - 1;
-      if (ele.innerText <= 0 || stopTime) {
+      if (ele.innerText <= 0) {
         clearInterval(sixInterval);
         // console.log("Time's up!");
         overtime = true;
         textArea.blur();
-        if (stopTime) {
-          timeToken = 60 - parseInt(ele.innerText);
-          console.log(timeToken);
-        } else if (ele.innerText <= 0) {
-          timeToken = 60;
-          console.log(timeToken);
-        }
-        let compState = document.querySelector(".cmplate-state");
-        compState.style.display = "flex";
       }
     }, 1000);
   } else {
@@ -121,9 +86,6 @@ function timer(ele) {
         // console.log("Time's up!");
         overtime = true;
         textArea.blur();
-        timeToken = parseInt(ele.innerText);
-        let compState = document.querySelector(".cmplate-state");
-        compState.style.display = "flex";
       }
     }, 1000);
   }
@@ -156,6 +118,13 @@ startBtn.addEventListener("click", () => {
       p.style.color = "white";
     }, 1500);
   }
+});
+
+startBtn.addEventListener("click", () => {
+  let completedCheck = setInterval(() => {
+    if (overtime) {
+    }
+  }, 1000);
 });
 
 function addSpan(span) {
@@ -211,32 +180,6 @@ textArea.addEventListener("input", () => {
   console.log(chars);
 
   fakePlace.innerText = rewritefake.join("");
-});
-
-startBtn.addEventListener("click", () => {
-  let completedCheck = setInterval(() => {
-    if (overtime) {
-      clearInterval(completedCheck);
-
-      const totalChars = textArea.value.length;
-      const correctChars = totalChars - falseChars.size;
-      const wpmValue = `${Math.round(totalChars / (timeToken / 60))}`;
-      const accuracyValue = totalChars
-        ? `${Math.floor((correctChars / totalChars) * 100)}`
-        : "0";
-
-      wpm.forEach((ele) => {
-        ele.innerText = wpmValue;
-      });
-      accuracy.forEach((ele) => {
-        ele.innerText = accuracyValue;
-      });
-      characters.innerText = `${totalChars}/${falseChars.size}`;
-
-      window.localStorage.highestScore = `${wpmValue}`;
-      score.innerText = window.localStorage.getItem("highestScore");
-    }
-  }, 1000);
 });
 
 setChecked(diffLabels);
