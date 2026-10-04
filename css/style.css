@@ -38,7 +38,7 @@ body {
 .highest {
   display: flex;
   align-items: center;
-  width: 190px;
+  width: 210px;
 }
 .highest img {
   width: 20px;
@@ -199,7 +199,7 @@ body {
   transition: 0s;
 }
 .cmplate-state {
-  width: 83.5%;
+  width: 87%;
   height: stretch;
   background-color: hsl(0, 0%, 7%);
   padding-top: 5%;

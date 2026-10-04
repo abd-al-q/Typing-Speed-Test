@@ -14,7 +14,7 @@ let wpm = document.querySelectorAll(".wpm span");
 let accuracy = document.querySelectorAll(".accuracy span");
 let characters = document.querySelector(".characters span");
 let score = document.querySelector(".highest span");
-let timeToken = 0;
+let timeToken = 1;
 
 if (!window.localStorage.getItem("highestScore")) {
   window.localStorage.setItem("highestScore", "0");
@@ -28,10 +28,6 @@ score.innerText = window.localStorage.getItem("highestScore");
 controls.forEach((control) => {
   control.style.cssText = `color: ${control.dataset.color};`;
 });
-
-if (accuracy.innerText === "100%") {
-  accuracy.style.cssText = "color: hsl(140, 63%, 57%);";
-}
 
 function getRandom() {
   return Math.floor(Math.random() * 10);
@@ -90,14 +86,14 @@ function timer(ele) {
         textArea.value.length === fakePlace.innerText.length,
       );
       ele.innerText = parseInt(ele.innerText) - 1;
+      timeToken = 60 - parseInt(ele.innerText);
+      console.log(timeToken);
       if (ele.innerText <= 0 || stopTime) {
         clearInterval(sixInterval);
         // console.log("Time's up!");
         overtime = true;
         textArea.blur();
         if (stopTime) {
-          timeToken = 60 - parseInt(ele.innerText);
-          console.log(timeToken);
         } else if (ele.innerText <= 0) {
           timeToken = 60;
           console.log(timeToken);
@@ -116,12 +112,13 @@ function timer(ele) {
         parseInt(ele.innerText) < 9
           ? `0${parseInt(ele.innerText) + 1}`
           : parseInt(ele.innerText) + 1;
+      timeToken = parseInt(ele.innerText);
+      console.log(timeToken);
       if (stopTime) {
         clearInterval(openInterval);
         // console.log("Time's up!");
         overtime = true;
         textArea.blur();
-        timeToken = parseInt(ele.innerText);
         let compState = document.querySelector(".cmplate-state");
         compState.style.display = "flex";
       }
@@ -213,11 +210,9 @@ textArea.addEventListener("input", () => {
   fakePlace.innerText = rewritefake.join("");
 });
 
-startBtn.addEventListener("click", () => {
-  let completedCheck = setInterval(() => {
-    if (overtime) {
-      clearInterval(completedCheck);
-
+textArea.addEventListener("input", () => {
+  if (diffCond && modeCond) {
+    let completedCheck = setInterval(() => {
       const totalChars = textArea.value.length;
       const correctChars = totalChars - falseChars.size;
       const wpmValue = `${Math.round(totalChars / (timeToken / 60))}`;
@@ -233,10 +228,22 @@ startBtn.addEventListener("click", () => {
       });
       characters.innerText = `${totalChars}/${falseChars.size}`;
 
-      window.localStorage.highestScore = `${wpmValue}`;
+      window.localStorage.highestScore =
+        wpmValue > window.localStorage.highestScore
+          ? wpmValue
+          : window.localStorage.highestScore;
       score.innerText = window.localStorage.getItem("highestScore");
-    }
-  }, 1000);
+
+      accuracy.forEach((ele) => {
+        if (ele.innerText === "100") {
+          ele.style.color = "hsl(140, 63%, 57%)";
+        }
+      });
+      if (overtime) {
+        clearInterval(completedCheck);
+      }
+    }, 1000);
+  }
 });
 
 setChecked(diffLabels);
