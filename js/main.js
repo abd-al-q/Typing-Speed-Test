@@ -5,7 +5,7 @@ let modeLabels = document.querySelectorAll(".mode-inputs label");
 let startDiv = document.querySelector(".start");
 let startBtn = document.querySelector(".start-btn");
 let time = document.querySelector(".timing");
-let textArea = document.querySelector(`.test-text`);
+let textArea = document.querySelector(`#test-text`);
 let fakePlace = document.querySelector(`.fake-place`);
 let display = document.querySelector(`.display`);
 let overtime = false;
@@ -14,9 +14,10 @@ let wpm = document.querySelectorAll(".wpm span");
 let accuracy = document.querySelectorAll(".accuracy span");
 let characters = document.querySelector(".characters span");
 let score = document.querySelector(".highest span");
+let restart = document.querySelectorAll(".restart");
 let timeToken = 1;
 
-if (!window.localStorage.getItem("highestScore")) {
+if (window.localStorage.getItem("highestScore") === null) {
   window.localStorage.setItem("highestScore", "0");
 }
 score.innerText = window.localStorage.getItem("highestScore");
@@ -48,7 +49,7 @@ function setChecked(labels) {
   });
 }
 
-function detTextArray(labels) {
+function setTextArray(labels) {
   labels.forEach((label) => {
     label.addEventListener("click", (ele) => {
       if (startDiv.style.display !== "none") {
@@ -57,6 +58,15 @@ function detTextArray(labels) {
         let passage = array[getRandom()];
         fakePlace.innerText = passage;
         origintext = fakePlace.innerText.split("");
+
+        $("document").ready(function () {
+          $("#test-text").animate(
+            {
+              height: `${$(".fake-place").height()}px`,
+            },
+            100,
+          );
+        });
       }
     });
   });
@@ -79,6 +89,11 @@ function setDifficulty(lables) {
   });
 }
 
+if (window.localStorage.getItem("firstTime") === null) {
+  window.localStorage.setItem("firstTime", "true");
+}
+let firstTime = "";
+
 function timer(ele) {
   if (ele.innerText === "60") {
     let sixInterval = setInterval(() => {
@@ -87,19 +102,15 @@ function timer(ele) {
       );
       ele.innerText = parseInt(ele.innerText) - 1;
       timeToken = 60 - parseInt(ele.innerText);
-      console.log(timeToken);
       if (ele.innerText <= 0 || stopTime) {
         clearInterval(sixInterval);
-        // console.log("Time's up!");
         overtime = true;
         textArea.blur();
-        if (stopTime) {
-        } else if (ele.innerText <= 0) {
-          timeToken = 60;
-          console.log(timeToken);
-        }
         let compState = document.querySelector(".cmplate-state");
         compState.style.display = "flex";
+
+        firstTime = window.localStorage.firstTime;
+        window.localStorage.firstTime = "false";
       }
     }, 1000);
   } else {
@@ -113,7 +124,6 @@ function timer(ele) {
           ? `0${parseInt(ele.innerText) + 1}`
           : parseInt(ele.innerText) + 1;
       timeToken = parseInt(ele.innerText);
-      console.log(timeToken);
       if (stopTime) {
         clearInterval(openInterval);
         // console.log("Time's up!");
@@ -121,6 +131,9 @@ function timer(ele) {
         textArea.blur();
         let compState = document.querySelector(".cmplate-state");
         compState.style.display = "flex";
+
+        firstTime = window.localStorage.firstTime;
+        window.localStorage.firstTime = "false";
       }
     }, 1000);
   }
@@ -130,16 +143,14 @@ let diffCond = false;
 let modeCond = false;
 
 startBtn.addEventListener("click", () => {
-  diffLabels.forEach((ele) => {
-    if (ele.classList.contains("checked")) {
-      diffCond = true;
-    }
-  });
-  modeLabels.forEach((ele) => {
-    if (ele.classList.contains("checked")) {
-      modeCond = true;
-    }
-  });
+  diffCond = Array.from(diffLabels).some((ele) =>
+    ele.classList.contains("checked"),
+  );
+  modeCond = Array.from(modeLabels).some((ele) =>
+    ele.classList.contains("checked"),
+  );
+  console.log(diffCond);
+  console.log(modeCond);
 
   if (diffCond && modeCond) {
     startDiv.style.display = "none";
@@ -232,7 +243,7 @@ textArea.addEventListener("input", () => {
         wpmValue > window.localStorage.highestScore
           ? wpmValue
           : window.localStorage.highestScore;
-      score.innerText = window.localStorage.getItem("highestScore");
+      score.innerText = window.localStorage.highestScore;
 
       accuracy.forEach((ele) => {
         if (ele.innerText === "100") {
@@ -246,7 +257,13 @@ textArea.addEventListener("input", () => {
   }
 });
 
+$("document").ready(function () {
+  $(".restart").on("click", function () {
+    window.location.reload();
+  });
+});
+
 setChecked(diffLabels);
 setChecked(modeLabels);
-detTextArray(diffLabels);
+setTextArray(diffLabels);
 setDifficulty(modeLabels);

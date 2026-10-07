@@ -105,19 +105,19 @@ body {
   display: flex;
   padding: 0 10px;
 }
-.test-text,
+#test-text,
 .fake-place,
 .display {
   color: hsl(140, 63%, 57%);
   font-size: 32px;
   word-wrap: break-word;
-  height: 525px;
 }
-.test-text {
+#test-text {
   position: relative;
   z-index: 1;
   display: block;
   width: 90%;
+  min-height: 170px;
   margin: 30px auto 0 auto;
   padding: 0 15% 40px 15%;
   background-color: inherit;
@@ -145,7 +145,7 @@ body {
 .main {
   position: relative;
 }
-.test-text:focus {
+#test-text:focus {
   outline: none;
 }
 .btn {
@@ -216,4 +216,10 @@ body {
   justify-content: space-between;
   width: 30%;
   padding: 40px 0;
+}
+.cmplate-state img:nth-last-of-type(2) {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: none;
 }
